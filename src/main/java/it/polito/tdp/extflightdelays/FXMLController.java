@@ -28,7 +28,7 @@ public class FXMLController {
     private Button btnCreaGrafo;
 
     @FXML
-    private ComboBox<?> cmbBoxStati;
+    private ComboBox<String> cmbBoxStati;
 
     @FXML
     private Button btnVisualizzaVelivoli;
@@ -44,7 +44,14 @@ public class FXMLController {
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-
+    	/*txtResult.clear();
+    	model.creaGrafo();
+    	cmbBoxStati.getItems().addAll(model.getGrafo().vertexSet());
+    	btnVisualizzaVelivoli.setDisable(false);*/
+    	txtResult.clear();
+    	model.creaGrafo2();
+    	cmbBoxStati.getItems().addAll(model.getVertici());
+    	this.btnVisualizzaVelivoli.setDisable(false);
     }
 
     @FXML
@@ -54,7 +61,13 @@ public class FXMLController {
 
     @FXML
     void doVisualizzaVelivoli(ActionEvent event) {
-
+    	txtResult.clear();
+    	//txtResult.appendText(model.statiConnessi(cmbBoxStati.getValue()).toString());
+    	if (cmbBoxStati.getValue()==null) {
+			txtResult.appendText("Seleziona uno stato!\n");
+			return;
+		}
+    	txtResult.appendText(model.statiCollegati(cmbBoxStati.getValue().toString()));
     }
 
     @FXML
@@ -71,5 +84,6 @@ public class FXMLController {
 
 	public void setModel(Model model) {
 		this.model = model;
+		this.btnVisualizzaVelivoli.setDisable(true);
 	}
 }
